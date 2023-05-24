@@ -23,16 +23,14 @@ def mostrar_jugadores(lista_jugadores:list, punto: str) -> list:
         
         if punto == "1":
             for jugadores in lista:
-                    lista_ordenada.append([jugadores["nombre"], jugadores["posicion"]])
+                    print("{0} - {1}".format(jugadores["nombre"], jugadores["posicion"]))
         elif punto == "2":
             indice = 0
-            for jugadores in lista:
-                lista_ordenada.append([indice,jugadores["nombre"], jugadores["posicion"]])
+            for jugadores in lista:  
+                print("{0} | {1} | {2}".format(indice, jugadores["nombre"], jugadores["posicion"]))
                 indice += 1
     else:
         print("[herror]: lista vacia")
-    
-
-    return lista_ordenada
 
 
+print(mostrar_jugadores(lista_jugadores, ""))
