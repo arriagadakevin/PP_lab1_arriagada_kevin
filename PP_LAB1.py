@@ -19,8 +19,6 @@ def mostrar_jugadores(lista_jugadores:list, punto: str) -> list:
     """
     if len(lista_jugadores) > 0:
         lista = lista_jugadores[:]
-        lista_ordenada = []
-        
         if punto == "1":
             for jugadores in lista:
                     print("{0} - {1}".format(jugadores["nombre"], jugadores["posicion"]))
@@ -33,4 +31,5 @@ def mostrar_jugadores(lista_jugadores:list, punto: str) -> list:
         print("[herror]: lista vacia")
 
 
-print(mostrar_jugadores(lista_jugadores, ""))
+def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list):
+    pass
