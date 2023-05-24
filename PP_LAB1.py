@@ -33,3 +33,7 @@ def mostrar_jugadores(lista_jugadores:list, punto: str) -> list:
 
 def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list):
     pass
+
+
+
+
