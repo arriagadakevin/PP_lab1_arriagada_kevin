@@ -35,4 +35,4 @@ def mostrar_jugadores(lista_jugadores:list, punto: str) -> list:
 
     return lista_ordenada
 
-print(mostrar_jugadores(lista_jugadores, "2"))
+
