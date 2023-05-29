@@ -3,7 +3,8 @@ from PP_LAB1 import (
     mostrar_menu,
     mostrar_estadisticas_jugador_por_indice,
     lista_jugadores,
-    mostrar_jugadores
+    mostrar_jugadores,
+    buscar_jugador_por_nombre
 )
 
 
@@ -24,13 +25,13 @@ def menu_dream_team():
             respuesta = int(input("seleccionar punto (1 - 20)"))
         match respuesta:
             case 1:
-                mostrar_jugadores(lista_jugadores, False)
+                mostrar_jugadores(lista_jugadores)
             case 2:
                 mostrar_estadisticas_jugador_por_indice(lista_jugadores)
             case 3:
                  mostrar_estadisticas_jugador_por_indice(lista_jugadores)
             case 4:
-                pass
+                buscar_jugador_por_nombre(lista_jugadores)
             case 5:
                 pass
             case 6:

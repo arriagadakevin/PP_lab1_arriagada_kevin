@@ -1,6 +1,7 @@
 import json
 import re
 
+
 def imprimir_datos(dato)-> None:
     """
     funcion para imprimir dato 
@@ -8,6 +9,14 @@ def imprimir_datos(dato)-> None:
     retorna: dato
     """
     print(dato)
+
+def msg_error(tipo_error : str)->str:
+    """
+    genera un mensaje de error
+    parametros: tipo error : str
+    devuelve : str
+    """
+    return imprimir_datos(" ¡[error]! {0}". format(tipo_error))
 
 def parce_json(nombre_archivo : str) -> list:
     """
@@ -45,50 +54,65 @@ def mostrar_menu()->None:
         """)
 
 
-
-        
-def mostrar_jugadores(lista_jugadores:list, mostra_indice : bool) -> list:
+def mostrar_jugadores(lista_jugadores:list) -> None:
     """
-    mostrar jugadores en formato(Nombre Jugador - Posición)
+    mostrar jugadores en formato(indice - Nombre Jugador - Posición)
     parametro: lista_jugadores : list, lista con todos los jugadores a imprimir
-    devulve: lista ordenada con el formato deseado
+    devulve: none
     """
     if len(lista_jugadores) > 0:
-        if mostra_indice == False:
-            for jugadores in lista_jugadores:
-                imprimir_datos("{0} - {1}".format(jugadores["nombre"], jugadores["posicion"]))
-        elif mostra_indice == True:
-            indice = 0
-            for jugadores in lista_jugadores:  
-                imprimir_datos("{0} | {1} | {2}".format(indice, jugadores["nombre"], jugadores["posicion"]))
-                indice += 1
+        for indice in range(len(lista_jugadores)):
+            jugador = lista_jugadores[indice]
+            imprimir_datos("{0} | {1} | {2} |".format(
+                                                    indice, 
+                                                    jugador["nombre"], 
+                                                    jugador["posicion"]
+                                                    ))
+        
     else:
-        print("[error]: lista vacia")
+        msg_error("Lista vacia")
 
 
 def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list):
-
-    mostrar_jugadores(lista_jugadores, True)
-    indice = input("selecciones el indice del jugador deseado")
-    while re.search(r"^(0|1|2|3|4|5|6|7|8|9|10|11)$", indice) == None :
-        imprimir_datos("[error] : numero incorrecto")
+    if lista_jugadores:
+        mostrar_jugadores(lista_jugadores)
         indice = input("selecciones el indice del jugador deseado")
+        while re.search(r"^(0|1|2|3|4|5|6|7|8|9|10|11)$", indice) == None :
+            imprimir_datos("[error] : numero incorrecto")
+            indice = input("selecciones el indice del jugador deseado")
 
-    indice = int(indice)
-    jugador_seleccionado = lista_jugadores[indice]
-    imprimir_datos("el jugador seleccionado es: {0} y sus estadisticas son: {1}".format(
-                                                jugador_seleccionado["nombre"],
-                                                jugador_seleccionado["estadisticas"]))
-    
-    respuesta = input("deseas guardar la informacion en formato csv? (si/no)")
-    if respuesta == "si":
-        guardar_jugadores_en_csv(r"C:\Users\arria\OneDrive\Escritorio\UTN\1er parcial python\PP_lab1_arriagada_kevin\datos.csv", jugador_seleccionado)
+        indice = int(indice)
+        jugador_seleccionado = lista_jugadores[indice]
+        imprimir_datos("el jugador seleccionado es: {0} y sus estadisticas son: {1}".format(
+                                                    jugador_seleccionado["nombre"],
+                                                    jugador_seleccionado["estadisticas"]))
+        
+        respuesta = input("deseas guardar la informacion en formato csv? (si/no)")
+        if respuesta == "si":
+            guardar_jugadores_en_csv(r"C:\Users\arria\OneDrive\Escritorio\UTN\1er parcial python\PP_lab1_arriagada_kevin\datos.csv", jugador_seleccionado)
+    else:
+        msg_error("lista vacia")
 
 def guardar_jugadores_en_csv(nombre_archivo : str,jugador : list)->None:
-    with open(nombre_archivo, "w") as archivo:
-        texto = "el jugador seleccionado es: {0} y sus estadisticas son: {1}".format(
-                                                jugador["nombre"],
-                                                jugador["estadisticas"])
-        archivo.write(texto)
+    if len(jugador) > 0 and type(nombre_archivo) == str:
+        with open(nombre_archivo, "w") as archivo:
+            texto = "el jugador seleccionado es: {0} y sus estadisticas son: {1}".format(
+                                                    jugador["nombre"],
+                                                    jugador["estadisticas"])
+            archivo.write(texto)
+    else:
+        msg_error("lista vacia")
 
 
+def buscar_jugador_por_nombre(lista_jugadores : list):
+    if len(lista_jugadores) > 0:
+        nombre_jugador = input("ingrese nombre del jugador deseado")
+        for jugadores in lista_jugadores:
+            if nombre_jugador.lower() == jugadores["nombre"].lower() :
+                imprimir_datos("nombre jugador : {0}, logros : {1}".format(jugadores["nombre"], jugadores["logros"]))
+    else:
+        msg_error("lista vacia")
+        
+def ordenar_una_lista():
+
+buscar_jugador_por_nombre(lista_jugadores)
