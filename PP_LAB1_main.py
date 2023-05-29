@@ -4,7 +4,11 @@ from PP_LAB1 import (
     mostrar_estadisticas_jugador_por_indice,
     lista_jugadores,
     mostrar_jugadores,
-    buscar_jugador_por_nombre
+    buscar_jugador_por_nombre,
+    lista_jugadores_ordenada_promediada,
+    clear_console,
+    nombre_jugador,
+    jugadores_salor_fama
 )
 
 
@@ -26,18 +30,25 @@ def menu_dream_team():
         match respuesta:
             case 1:
                 mostrar_jugadores(lista_jugadores)
+                clear_console()
             case 2:
                 mostrar_estadisticas_jugador_por_indice(lista_jugadores)
+                clear_console()
             case 3:
-                 mostrar_estadisticas_jugador_por_indice(lista_jugadores)
+                mostrar_estadisticas_jugador_por_indice(lista_jugadores)
+                clear_console() 
             case 4:
-                buscar_jugador_por_nombre(lista_jugadores)
+                buscar_jugador_por_nombre(lista_jugadores, nombre_jugador())
+                clear_console()
             case 5:
-                pass
+                lista_jugadores_ordenada_promediada(lista_jugadores)
+                clear_console()
             case 6:
-                pass
+                buscar_jugador_por_nombre(lista_jugadores)
+                clear_console()
             case 7:
-                pass
+                jugadores_salor_fama(nombre_jugador(), lista_jugadores)
+                clear_console()
             case 8:
                 pass
             case 9:
