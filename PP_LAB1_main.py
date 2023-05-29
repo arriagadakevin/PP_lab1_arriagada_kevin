@@ -3,6 +3,7 @@ from PP_LAB1 import (
     mostrar_menu,
     mostrar_estadisticas_jugador_por_indice,
     lista_jugadores,
+    mostrar_jugadores
 )
 
 
@@ -23,12 +24,11 @@ def menu_dream_team():
             respuesta = int(input("seleccionar punto (1 - 20)"))
         match respuesta:
             case 1:
-                imprimir_datos("vamos bien")
+                mostrar_jugadores(lista_jugadores, False)
             case 2:
-                print("hola")
                 mostrar_estadisticas_jugador_por_indice(lista_jugadores)
             case 3:
-                pass
+                 mostrar_estadisticas_jugador_por_indice(lista_jugadores)
             case 4:
                 pass
             case 5:
