@@ -44,10 +44,9 @@ def menu_dream_team():
                 lista_jugadores_ordenada_promediada(lista_jugadores)
                 clear_console()
             case 6:
-                buscar_jugador_por_nombre(lista_jugadores)
+                jugadores_salor_fama(nombre_jugador(), lista_jugadores)
                 clear_console()
             case 7:
-                jugadores_salor_fama(nombre_jugador(), lista_jugadores)
                 clear_console()
             case 8:
                 pass

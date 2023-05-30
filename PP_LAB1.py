@@ -120,11 +120,12 @@ def nombre_jugador()-> str:
     retorna: nombre_jugador str 
     """
     nombre_jugador = input("ingrese nombre del jugador deseado")
-    return nombre_jugador
+    return nombre_jugador.lower()
+
 def buscar_jugador_por_nombre(lista_jugadores : list, nombre_jugador : str):
     if len(lista_jugadores) > 0:
         for jugadores in lista_jugadores:
-            if nombre_jugador.lower() == jugadores["nombre"].lower() :
+            if nombre_jugador == jugadores["nombre"].lower() :
                     imprimir_datos("nombre jugador : {0}, logros : {1}".format(jugadores["nombre"], jugadores["logros"]))
                     break
     else:
@@ -171,14 +172,9 @@ def lista_jugadores_ordenada_promediada(lista_jugadores : list)->str:
 
 def jugadores_salor_fama(nombre_jugador: str , lista_jugadores :list):
     for jugadores in lista_jugadores:
-        if nombre_jugador == jugadores["nombre"] :
-            print("vamo bien")
+        if nombre_jugador == jugadores["nombre"].lower() :
             logros = jugadores["logros"]
             for logro in logros:
-                print("mentira seguimo")
                 if "Miembro del Salon de la Fama del Baloncesto" == logro:
-                    imprimir_datos("{0} {1}".format(jugadores["nombre"], logro))
-        else:
-            msg_error("jugador no encontrado")
+                    imprimir_datos("el jugador {0} es {1}".format(jugadores["nombre"], logro))
 
-            
