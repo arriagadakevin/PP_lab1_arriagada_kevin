@@ -8,7 +8,11 @@ from PP_LAB1 import (
     lista_jugadores_ordenada_promediada,
     clear_console,
     nombre_jugador,
-    jugadores_salor_fama
+    jugadores_salor_fama,
+    calcular_max,
+    mostrar_mayor_puntos_por_partido,
+    mayor_cantidad_logros,
+    calcular_mostrar
 )
 
 
@@ -47,32 +51,46 @@ def menu_dream_team():
                 jugadores_salor_fama(nombre_jugador(), lista_jugadores)
                 clear_console()
             case 7:
+                calcular_max(lista_jugadores,"estadisticas" ,"rebotes_totales")
                 clear_console()
             case 8:
-                pass
+                calcular_max(lista_jugadores,"estadisticas" ,"porcentaje_tiros_de_campo")
+                clear_console()
             case 9:
-                pass
+                calcular_max(lista_jugadores,"estadisticas" ,"asistencias_totales")
+                clear_console()
             case 10:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "promedio_puntos_por_partido")
+                clear_console()
             case 11:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "promedio_rebotes_por_partido")
+                clear_console()
             case 12:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "promedio_asistencias_por_partido")
+                clear_console()
             case 13:
-                pass
+                calcular_max(lista_jugadores,"estadisticas","robos_totales")
+                clear_console()
             case 14:
-                pass
+                calcular_max(lista_jugadores,"estadisticas","bloqueos_totales")
+                clear_console()
             case 15:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_libres")
+                clear_console()
             case 16:
-                pass
+                calcular_mostrar(lista_jugadores,"promedio_puntos_por_partido")
+                clear_console()
             case 17:
-                pass
+                mayor_cantidad_logros(lista_jugadores)
+                clear_console()
             case 18:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_triples")
+                clear_console()
             case 19:
-                pass
+                calcular_max(lista_jugadores,"estadisticas","temporadas")
+                clear_console()
             case 20:
-                pass
+                mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_triples" )
+                clear_console()
 
 menu_dream_team()

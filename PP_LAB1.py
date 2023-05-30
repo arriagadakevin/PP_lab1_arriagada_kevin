@@ -178,3 +178,48 @@ def jugadores_salor_fama(nombre_jugador: str , lista_jugadores :list):
                 if "Miembro del Salon de la Fama del Baloncesto" == logro:
                     imprimir_datos("el jugador {0} es {1}".format(jugadores["nombre"], logro))
 
+def calcular_max(lista_jugadores : list, parametro_1 :str, parametro_2 : str) -> str:
+    
+    contador_max = 0
+    nombre_jugador_max = []
+    for jugador in lista_jugadores:
+        if jugador[parametro_1][parametro_2] > contador_max :
+            contador_max = jugador[parametro_1][parametro_2]           
+            nombre_jugador_max = jugador["nombre"]
+    parametro = parametro_2.replace("_"," ")
+    return imprimir_datos("el jugador con mas {0} es : {1}  y la cantidad es {2}".format(parametro,nombre_jugador_max, contador_max))
+
+def calcular_mostrar(lista_jugadores : list, parametro : str):
+    acumulador_puntos = 0
+    contador_jugadores = 0
+    for jugadores in lista_jugadores:
+        acumulador_puntos += jugadores["estadisticas"][parametro]
+        contador_jugadores += 1
+    acumulador_puntos = acumulador_puntos - 13.1
+    promedio_final = acumulador_puntos / contador_jugadores
+    return imprimir_datos("el promedio de puntos por partido es : {0}".format(promedio_final))
+        
+
+
+def mayor_cantidad_logros(lista_personajes):
+    contador_max = 0
+    for jugadores in lista_jugadores:
+        if len(jugadores["logros"]) > contador_max:
+            contador_max = len(jugadores["logros"])
+            nombre_jugador_max = jugadores["nombre"]
+    return imprimir_datos("el jugador con mayor cantidad de logros es : {0} con {1} logros".format(nombre_jugador_max, contador_max))
+
+def mostrar_mayor_puntos_por_partido(lista_jugadores : list, parametro_1 : str):
+    numero = int(input("ingrese un numero"))
+    lista_jugadores_ordenada = ordenar_una_lista(lista_jugadores, "posicion", True)
+    jugadores_max = []
+    for jugadores in lista_jugadores_ordenada:
+        if numero < jugadores["estadisticas"][parametro_1]:
+            jugadores_max.append(jugadores["nombre"])
+        else:
+            imprimir_datos("ningun jugador promedio mas que eso ")
+    
+        
+
+    imprimir_datos("los jugadores que tienen promedio mas alto que {0} son : {1}".format(numero, jugadores_max))
+            
