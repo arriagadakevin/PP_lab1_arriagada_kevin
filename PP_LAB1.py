@@ -230,7 +230,12 @@ def calcular_mostrar(lista_jugadores :list ):
         
 
 
-def mayor_cantidad_logros(lista_jugadores: list):
+def mayor_cantidad_logros(lista_jugadores: list)-> str:
+    """
+    busca al jugador con mayor cantidad de logros 
+    parametro: lista_jugadores : list, lista a trabajar 
+    retorna: str
+    """
     contador_max = 0
     for jugadores in lista_jugadores:
         if len(jugadores["logros"]) > contador_max:
@@ -247,8 +252,5 @@ def mostrar_mayor_puntos_por_partido(lista_jugadores : list, parametro_1 : str):
             jugadores_max.append(jugadores["nombre"])
         else:
             imprimir_datos("ningun jugador promedio mas que eso ")
-    
-        
-
     imprimir_datos("los jugadores que tienen promedio mas alto que {0} son : {1}".format(numero, jugadores_max))
             
