@@ -132,11 +132,19 @@ def buscar_jugador_por_nombre(lista_jugadores : list, nombre_jugador : str):
         msg_error("lista vacia")
 
 
-def calcular_promedio_estadisticas(lista_jugadores : list, estadistica : str):
+def calcular_promedio_estadisticas(lista_jugadores : list, variable1 : str, variable : str)-> int:
+    """
+    funcion para calcular promedio
+    parametros: lista_jugadores : list, lista de jugadores a trabajar
+    parametro: variable1 : str, str que sirve para definir la accion
+    parametro: variable : srt, str que sirve para definir otra accion
+    retorna: promedio_final : int 
+    """
+    
     acumulador_puntos = 0
     contador_jugadores = 0
     for jugadores in lista_jugadores:
-        acumulador_puntos += jugadores["estadisticas"][estadistica]
+        acumulador_puntos += jugadores[variable1][variable]
         contador_jugadores += 1
     
     promedio_final = acumulador_puntos / contador_jugadores
@@ -144,22 +152,36 @@ def calcular_promedio_estadisticas(lista_jugadores : list, estadistica : str):
 
 
 def ordenar_una_lista(lista_jugadores : list, parametro: str,flag_orden : bool) -> list:
-    lista = lista_jugadores
-    rango_a = len(lista) - 1
-    flag_swap = True
-
-    while(flag_swap):
-        flag_swap = False
-        for indice_A in range(rango_a):
-            if  (flag_orden == False and lista[indice_A][parametro] < lista[indice_A+1][parametro]) \
-             or (flag_orden == True and lista[indice_A][parametro] > lista[indice_A+1][parametro]):
-                lista[indice_A],lista[indice_A+1] = lista[indice_A+1],lista[indice_A]
-                flag_swap = True
-    return lista
-
+    """
+    funcion que sirve para crear una lista ordenada dependiendo del parametro
+    parametro: lista_jugadores : list, lista a trabajar
+    parametro: parametro: str, sirve para definir el parametro por el cual ordenar
+    parametro: flag_orden : bool, sirve para definir si, de manera ascendente o decendiente se va a ordenar
+    retrona: lista : list, lista ordenada 
+    """
+    if len(lista_jugadores) > 0:
+        lista = lista_jugadores[:]
+        rango_a = len(lista) - 1
+        flag_swap = True
+        while(flag_swap):
+            flag_swap = False
+            for indice_A in range(rango_a):
+                if  (flag_orden == False and lista[indice_A][parametro] < lista[indice_A+1][parametro]) \
+                or (flag_orden == True and lista[indice_A][parametro] > lista[indice_A+1][parametro]):
+                    lista[indice_A],lista[indice_A+1] = lista[indice_A+1],lista[indice_A]
+                    flag_swap = True
+        return lista
+    else:
+        msg_error("lista_vacia")
 
 def lista_jugadores_ordenada_promediada(lista_jugadores : list)->str:
+    """
+    funcion para mostrar el pomedio y a su vez ver la lista ordenada
+    parametro: lista_personajes: list, lista a trabajar 
+    retorna: str
+    """
     if len(lista_jugadores) > 0:
+
         promedios = calcular_promedio_estadisticas(lista_jugadores, "promedio_puntos_por_partido")
         lista_jugadores_ordenada = ordenar_una_lista(lista_jugadores,"nombre", False)
         imprimir_datos("*************************************************************")
@@ -171,6 +193,11 @@ def lista_jugadores_ordenada_promediada(lista_jugadores : list)->str:
         msg_error("lista vacia")
 
 def jugadores_salor_fama(nombre_jugador: str , lista_jugadores :list):
+    """
+    sirve para ver los jugadores que pertenecen al salon de la fama
+    parametro: nombre_jugador : str, nombre a buscar
+    parametro: lista_jugadores : list, lista a trabajar
+    """
     for jugadores in lista_jugadores:
         if nombre_jugador == jugadores["nombre"].lower() :
             logros = jugadores["logros"]
@@ -179,7 +206,13 @@ def jugadores_salor_fama(nombre_jugador: str , lista_jugadores :list):
                     imprimir_datos("el jugador {0} es {1}".format(jugadores["nombre"], logro))
 
 def calcular_max(lista_jugadores : list, parametro_1 :str, parametro_2 : str) -> str:
-    
+    """
+    funcion que sirve para calcular el jugador que mas puntos tiene en una determinada categoria
+    parametro: lista_jugadores : list, lista a trabajar
+    parametro: parametro_1 : str ,parametro a trabajar
+    parametro: parametro_2 : str , segundo parametro a trabajar
+    devuelve: str
+    """
     contador_max = 0
     nombre_jugador_max = []
     for jugador in lista_jugadores:
@@ -189,19 +222,15 @@ def calcular_max(lista_jugadores : list, parametro_1 :str, parametro_2 : str) ->
     parametro = parametro_2.replace("_"," ")
     return imprimir_datos("el jugador con mas {0} es : {1}  y la cantidad es {2}".format(parametro,nombre_jugador_max, contador_max))
 
-def calcular_mostrar(lista_jugadores : list, parametro : str):
-    acumulador_puntos = 0
-    contador_jugadores = 0
-    for jugadores in lista_jugadores:
-        acumulador_puntos += jugadores["estadisticas"][parametro]
-        contador_jugadores += 1
-    acumulador_puntos = acumulador_puntos - 13.1
-    promedio_final = acumulador_puntos / contador_jugadores
-    return imprimir_datos("el promedio de puntos por partido es : {0}".format(promedio_final))
+def calcular_mostrar(lista_jugadores :list ):
+    lista = ordenar_una_lista(lista_jugadores, "posicion", False)
+    lista = lista[1:]
+    promedio =calcular_promedio_estadisticas(lista, "estadisticas", "promedio_puntos_por_partido")
+    return imprimir_datos("el promedio de puntos por partido es : {0}".format(promedio))
         
 
 
-def mayor_cantidad_logros(lista_personajes):
+def mayor_cantidad_logros(lista_jugadores: list):
     contador_max = 0
     for jugadores in lista_jugadores:
         if len(jugadores["logros"]) > contador_max:

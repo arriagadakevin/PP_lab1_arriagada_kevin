@@ -78,7 +78,7 @@ def menu_dream_team():
                 mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_libres")
                 clear_console()
             case 16:
-                calcular_mostrar(lista_jugadores,"promedio_puntos_por_partido")
+                calcular_mostrar(lista_jugadores)
                 clear_console()
             case 17:
                 mayor_cantidad_logros(lista_jugadores)
