@@ -253,4 +253,42 @@ def mostrar_mayor_puntos_por_partido(lista_jugadores : list, parametro_1 : str):
         else:
             imprimir_datos("ningun jugador promedio mas que eso ")
     imprimir_datos("los jugadores que tienen promedio mas alto que {0} son : {1}".format(numero, jugadores_max))
-            
+
+
+def extra():
+    keys = ["Pivot", "Escolta" , "Base" , "Ala-Pivot", "Alero"]
+    diccionario_jugadores = {"Pivot" : 0, "Escolta": 0,
+                              "Base" : 0,"Ala-Pivot" : 0, 
+                              "Alero": 0}
+
+    for keys in keys:
+        for jugadores in lista_jugadores:
+            if jugadores["posicion"] == keys:
+                diccionario_jugadores[keys] += 1
+                
+    print(diccionario_jugadores)
+
+# def numero_all_Star(lista_jugadores):
+#     jugadores_all_star = {}
+#     for jugador in lista_jugadores:
+#         nombre = jugador["nombre"]
+#         for logro in jugador["logros"]:
+#             if re.search(r"\d+ veces All-Star", logro):
+#                 jugadores_all_star[nombre] += 1
+#             else:
+#                 jugadores_all_star[nombre] = 1
+#     for nombre in jugadores_all_star:
+#         contador = jugadores_all_star["nombre"]
+#         print("{0} ({1} veces All-Star)".format(nombre, contador))    
+#numero_all_Star(lista_jugadores)
+
+def mejores_Estadisticas(lista_jugadores :list):
+    for jugador in lista_jugadores:
+        for estadisticas in jugador["estadisticas"]:
+            calcular_max(lista_jugadores, "estadisticas", estadisticas)
+        break
+    
+#numero_all_start(lista_jugadores)
+
+#mejores_Estadisticas(lista_jugadores)
+#extra()
