@@ -16,10 +16,7 @@ from PP_LAB1 import (
     extra,
     mejores_Estadisticas,
     mejor_jugador,
-    imprimir_guarda_tabla_jugadores,
-    guardar_jugadores_en_csv,
-    generar_texto,
-    posicion_en_cada_stadistica
+    punto_extra
     
 )
 
@@ -101,12 +98,7 @@ def menu_dream_team():
                 mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_triples" )
                 clear_console()
             case 23:
-                jugadores_con_estadisticas = posicion_en_cada_stadistica(lista_jugadores)
-                nombre_archivo = "informe_jugadores.csv"
-                print(jugadores_con_estadisticas)
-                texto_generado = generar_texto(jugadores_con_estadisticas)
-                guardar_jugadores_en_csv(nombre_archivo, texto_generado)
-                imprimir_guarda_tabla_jugadores(jugadores_con_estadisticas)
+                punto_extra()
                 clear_console()
             case 24:
                 extra()

@@ -402,4 +402,9 @@ def imprimir_guarda_tabla_jugadores(lista_jugadores: list[dict])-> None:
 
 
 
-
+def punto_extra():
+    jugadores_con_estadisticas = posicion_en_cada_stadistica(lista_jugadores)
+    nombre_archivo = "informe_jugadores.csv"
+    texto_generado = generar_texto(jugadores_con_estadisticas)
+    guardar_jugadores_en_csv(nombre_archivo, texto_generado)
+    imprimir_guarda_tabla_jugadores(jugadores_con_estadisticas)
