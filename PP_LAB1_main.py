@@ -12,7 +12,15 @@ from PP_LAB1 import (
     calcular_max,
     mostrar_mayor_puntos_por_partido,
     mayor_cantidad_logros,
-    calcular_mostrar
+    calcular_mostrar,
+    extra,
+    mejores_Estadisticas,
+    mejor_jugador,
+    imprimir_guarda_tabla_jugadores,
+    guardar_jugadores_en_csv,
+    generar_texto,
+    posicion_en_cada_stadistica
+    
 )
 
 
@@ -28,7 +36,7 @@ def menu_dream_team():
     while True:
         mostrar_menu()
         respuesta = int(input("    seleccionar punto (1 - 20)"))
-        while  respuesta < 1 or respuesta > 20:
+        while  respuesta < 1 or respuesta > 27:
             imprimir_datos("[error] : numero invalido")
             respuesta = int(input("seleccionar punto (1 - 20)"))
         match respuesta:
@@ -91,6 +99,25 @@ def menu_dream_team():
                 clear_console()
             case 20:
                 mostrar_mayor_puntos_por_partido(lista_jugadores, "porcentaje_tiros_triples" )
+                clear_console()
+            case 23:
+                jugadores_con_estadisticas = posicion_en_cada_stadistica(lista_jugadores)
+                nombre_archivo = "informe_jugadores.csv"
+                print(jugadores_con_estadisticas)
+                texto_generado = generar_texto(jugadores_con_estadisticas)
+                guardar_jugadores_en_csv(nombre_archivo, texto_generado)
+                imprimir_guarda_tabla_jugadores(jugadores_con_estadisticas)
+                clear_console()
+            case 24:
+                extra()
+                clear_console()
+            case 25:
+                pass
+            case 26:
+                mejores_Estadisticas(lista_jugadores)
+                clear_console()
+            case 27:
+                mejor_jugador(lista_jugadores)
                 clear_console()
 
 menu_dream_team()
