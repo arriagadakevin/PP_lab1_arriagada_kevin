@@ -81,14 +81,23 @@ def mostrar_jugadores(lista_jugadores:list) -> None:
         msg_error("Lista vacia")
 
 def seleccionar_indice()->int:
+    """
+    funcion para seleccionar un indice del 1 al 11  
+    retorna: int (numero entero)
+    """
     indice = input("selecciones el indice del jugador deseado")
     while re.search(r"^(0|1|2|3|4|5|6|7|8|9|10|11)$", indice) == None :
-        imprimir_datos("[error] : numero incorrecto")
+        msg_error("numero incorrecto")
         indice = input("selecciones el indice del jugador deseado")
     indice = int(indice)
     return indice
 
-def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list):
+def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list)-> None:
+    """
+    mostrar las estadisticas de un jugador segun su indice
+    parametro: lista_jugadores:list, lista a trabajar
+    devuelve : None
+    """
     if lista_jugadores:
         mostrar_jugadores(lista_jugadores)
         indice = seleccionar_indice()
@@ -106,6 +115,7 @@ def mostrar_estadisticas_jugador_por_indice(lista_jugadores : list):
 def guardar_jugadores_en_csv(nombre_archivo : str,texto)->str:
     """
     funcion para guardar cadenas de texto en formato csv 
+    parametro: nombre_archivo :str 
     """
     if type(nombre_archivo) == str:
         with open(nombre_archivo, "w+") as archivo:
@@ -118,7 +128,7 @@ def nombre_jugador()-> str:
     """
     toma por input un nombre de jugador
     parametros: None
-    retorna: nombre_jugador str 
+    retorna: nombre_jugador: str 
     """
     nombre_jugador = input("ingrese nombre del jugador deseado")
     return nombre_jugador.lower()
@@ -129,7 +139,9 @@ def buscar_jugador_por_nombre(lista_jugadores : list, nombre_jugador : str):
             if nombre_jugador == jugadores["nombre"].lower() :
                     imprimir_datos("nombre jugador : {0}, logros : {1}".format(jugadores["nombre"], jugadores["logros"]))
                     break
-    else:
+            else:
+                msg_error("nombre no encontrado")
+    else:  
         msg_error("lista vacia")
 
 
@@ -141,15 +153,17 @@ def calcular_promedio_estadisticas(lista_jugadores : list, variable1 : str, vari
     parametro: variable : srt, str que sirve para definir otra accion
     retorna: promedio_final : int 
     """
-    
-    acumulador_puntos = 0
-    contador_jugadores = 0
-    for jugadores in lista_jugadores:
-        acumulador_puntos += jugadores[variable1][variable]
-        contador_jugadores += 1
-    
-    promedio_final = acumulador_puntos / contador_jugadores
-    return promedio_final
+    if len(lista_jugadores) > 0:
+        acumulador_puntos = 0
+        contador_jugadores = 0
+        for jugadores in lista_jugadores:
+            acumulador_puntos += jugadores[variable1][variable]
+            contador_jugadores += 1
+        
+        promedio_final = acumulador_puntos / contador_jugadores
+        return promedio_final
+    else:
+        msg_error("lista_vacia")
 
 
 def ordenar_una_lista(lista_jugadores : list, parametro: str, parametro_2 : str,flag_orden : bool) -> list:
@@ -326,7 +340,6 @@ def mejor_jugador(lista_jugadores :list):
     else:
         msg_error("lista vacia")
 
-#mejor_jugador(lista_jugadores)
 
 def posicion_en_cada_stadistica(lista_jugadores : list):
     keys = ["rebotes_totales", "asistencias_totales", "robos_totales", "puntos_totales"]
@@ -347,7 +360,6 @@ def posicion_en_cada_stadistica(lista_jugadores : list):
             if contador > 11:
                 return jugadores_segun_estadistica
     
-#print(posicion_en_cada_stadistica(lista_jugadores))
 def generar_texto(data)-> str:
 
     """
