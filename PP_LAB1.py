@@ -161,7 +161,7 @@ def ordenar_una_lista(lista_jugadores : list, parametro: str, parametro_2 : str,
     retrona: lista : list, lista ordenada 
     """
     if len(lista_jugadores) > 0:
-        if parametro_2 is None:
+        if parametro_2 is None and parametro != None:
             lista = lista_jugadores
             rango_a = len(lista) - 1
             flag_swap = True
@@ -173,7 +173,21 @@ def ordenar_una_lista(lista_jugadores : list, parametro: str, parametro_2 : str,
                         lista[indice_A],lista[indice_A+1] = lista[indice_A+1],lista[indice_A]
                         flag_swap = True
             return lista
-        else:
+        
+        elif parametro is None and parametro_2 is None:
+            lista = lista_jugadores[:]
+            rango_a = len(lista) - 1
+            flag_swap = True
+            while(flag_swap):
+                flag_swap = False
+                for indice_A in range(rango_a):
+                    if  (flag_orden == False and lista[indice_A] < lista[indice_A+1]) \
+                    or (flag_orden == True and lista[indice_A] > lista[indice_A+1]):
+                        lista[indice_A],lista[indice_A+1] = lista[indice_A+1],lista[indice_A]
+                        flag_swap = True
+            return lista
+        
+        elif parametro != None and parametro_2 != None:
             lista = lista_jugadores[:]
             rango_a = len(lista) - 1
             flag_swap = True
@@ -185,6 +199,8 @@ def ordenar_una_lista(lista_jugadores : list, parametro: str, parametro_2 : str,
                         lista[indice_A],lista[indice_A+1] = lista[indice_A+1],lista[indice_A]
                         flag_swap = True
             return lista
+        else:
+            msg_error("agregar bien los parametros")
     else:
         msg_error("lista_vacia")
 
@@ -332,19 +348,19 @@ def posicion_en_cada_stadistica(lista_jugadores : list):
                 return jugadores_segun_estadistica
     
 #print(posicion_en_cada_stadistica(lista_jugadores))
-def generar_texto(data):
+def generar_texto(data)-> str:
 
     """
     La función genera una representación de texto de los datos del jugador de baloncesto en formato de
-    lista o de diccionario.
-    
-    :param data: Los datos de entrada que pueden ser un diccionario o una lista de diccionarios que
-    contienen información sobre los jugadores de baloncesto y sus estadísticas
-    :return: La función `generar_texto` devuelve una cadena que contiene datos en un formato específico.
-    El formato depende del tipo de `datos` de entrada. Si `data` es una lista de diccionarios, la
-    función devuelve una cadena con valores separados por comas para cada diccionario de la lista. Si
-    `data` es un diccionario, la función devuelve una cadena con valores separados por comas para las
+    lista o de diccionario, dependiendo del tipo de dato, Si data es una lista de diccionarios, la
+    función devuelve una cadena con valores separados por comas para cada diccionario de la lista, Si
+    data es un diccionario, la función devuelve una cadena con valores separados por comas para las
     claves y valores en el diccionario
+    
+    parametro: data: Los datos de entrada que pueden ser un diccionario o una lista de diccionarios que
+    contienen información sobre los jugadores de baloncesto y sus estadísticas
+
+    retorna: devuelve una cadena que contiene datos en un formato específico.
     """
 
     if isinstance(data, list):
@@ -382,29 +398,77 @@ def generar_texto(data):
         return datos_str
 
     else:
-        return "Error: El tipo de entrada no es compatible."
+        msg_error("El tipo de entrada no es compatible")
     
     
-def imprimir_guarda_tabla_jugadores(lista_jugadores: list[dict])-> None:
+def imprimir_tabla_jugadores(lista_jugadores: list)-> None:
+    """
+    funcion para imprimir lista_jugadores formateada
+    parametro: (lista_jugadores : list)
+    devuelve : None
+    """
+    if len(lista_jugadores) > 0:
+        imprimir_datos("---------------------------------------------------------------------------")
+        imprimir_datos("|     Jugador          |    Puntos  |   Rebotes |  Asistencias  |  Robos  |")
+        imprimir_datos("---------------------------------------------------------------------------")
+        for jugador in lista_jugadores:
+            imprimir_datos("|  {:19s} | {:^10d} | {:^9d} | {:^13d} | {:^7d} |".format(
+                jugador["nombre"],
+                jugador["estadisticas"]["puntos_totales"],
+                jugador["estadisticas"]["rebotes_totales"],
+                jugador["estadisticas"]["asistencias_totales"],
+                jugador["estadisticas"]["robos_totales"])
+            )
+        imprimir_datos("---------------------------------------------------------------------------")
+    else:
+        msg_error("lista vacia")
 
-    print("---------------------------------------------------------------------------")
-    print("|     Jugador          |    Puntos  |   Rebotes |  Asistencias  |  Robos  |")
-    print("---------------------------------------------------------------------------")
-    for jugador in lista_jugadores:
-        print("|  {:19s} | {:^10d} | {:^9d} | {:^13d} | {:^7d} |".format(
-            jugador["nombre"],
-            jugador["estadisticas"]["puntos_totales"],
-            jugador["estadisticas"]["rebotes_totales"],
-            jugador["estadisticas"]["asistencias_totales"],
-            jugador["estadisticas"]["robos_totales"])
-        )
-    print("---------------------------------------------------------------------------")
 
 
+def all_star_ordenamiento(lista_jugadores : list )->list:
+    """
+    funcion para ordenar los jugadores segun la cantidad de all star
+    parametro : (lista_jugadores : list), lista a trabajar 
+    devuelve: (lista_ordenada : list) lista ordenada 
+    """
+    if len(lista_jugadores) > 0:
+        diccionario = []
+        for jugadores in lista_jugadores:
+            diccionario_jugador = {}
+            nombre = jugadores["nombre"]
+            for logros in jugadores["logros"]:
+                if re.search(r"^[0-9]+ veces All-Star", logros):
+                    dato = re.split(" ", logros)
+                    dato[0] = int(dato[0])
+                    diccionario_jugador['nombre'] = nombre
+                    diccionario_jugador["all_star"] = dato[0]
 
-def punto_extra():
-    jugadores_con_estadisticas = posicion_en_cada_stadistica(lista_jugadores)
-    nombre_archivo = "informe_jugadores.csv"
-    texto_generado = generar_texto(jugadores_con_estadisticas)
-    guardar_jugadores_en_csv(nombre_archivo, texto_generado)
-    imprimir_guarda_tabla_jugadores(jugadores_con_estadisticas)
+                    diccionario.append(diccionario_jugador)
+                    
+        lista_ordenada = ordenar_una_lista(diccionario, "all_star", None, True)
+        return(lista_ordenada)
+    else:
+        msg_error("lista vacia")
+
+def all_star_mostrar(lista_jugadores : list)-> None:
+    """
+    funcion para imprimir en pantalla los resultados de all_star_ordenamiento()
+    parametro : lista_jugadores :list , lista ordenada segun all star
+    devuelve: None
+    """
+    if len(lista_jugadores) > 0:
+        imprimir_datos("---------------------------------------")
+        imprimir_datos("|     Jugador          |    all star  |")
+        imprimir_datos("---------------------------------------")
+        for jugadores in lista_jugadores:
+            imprimir_datos("|  {:19s} |  {:^10d}  |".format(
+                jugadores["nombre"],
+                jugadores["all_star"],
+                ))
+        imprimir_datos("---------------------------------------")
+    else:
+        msg_error("lista vacia")
+
+lista = all_star_ordenamiento(lista_jugadores)
+all_star_mostrar(lista)
+
